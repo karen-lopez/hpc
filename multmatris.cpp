@@ -24,17 +24,17 @@ void *multmat(void *threadarg){
    A = my_data->A;
    B = my_data->B;
 
-   std::cout << "t es: " << t <<'\n';
-
-  for(int i=(N/4)*t; i<(N/4)*(t+1); ++i){
+   int parada;
+   if(t==3) parada = N;
+   else parada = (N/4)*(t+1);
+  for(int i=(N/4)*t; i<parada; ++i){
         for(int j=0; j<N; ++j){
             for(int z=0; z<N; ++z){
                 C[i][j] += A[i][z] * B[z][j];
             }
           }
-        }
-
-
+  }
+  pthread_exit(NULL);
 }
 
 
@@ -45,7 +45,8 @@ int main(){
     vector<vector< int > > B(N,vector<int>(N));
     vector<vector< int > > aux(N,vector<int>(N));
     C = aux;
-    clock_t t;
+    clock_t times;
+
 
    //rellenar matrices
    for(int i=0; i<N; i++){
@@ -88,13 +89,22 @@ int main(){
    }
 
    //empieza a tomar el tiempo
-   t = clock();
+
+   times = clock();
 
    //hilos
    pthread_t threads[NUM_THREADS];
    int *taskids[NUM_THREADS];
    int rc;
    long thread;
+   pthread_attr_t attr;
+   void *status;
+
+
+   // Initialize and set thread joinable
+   pthread_attr_init(&attr);
+   pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
+
    for(thread=0;thread<NUM_THREADS;thread++){
      mult[thread].thread_id = thread;
      mult[thread].N = N;
@@ -108,7 +118,22 @@ int main(){
        }
     }
 
-    t = clock() - t;
+    // free attribute and wait for the other threads
+   pthread_attr_destroy(&attr);
+   for(int i = 0; i < NUM_THREADS; i++ ) {
+      rc = pthread_join(threads[i], &status);
+      if (rc) {
+         cout << "Error:unable to join," << rc << endl;
+         exit(-1);
+      }
+   }
+
+    times = clock() - times;
+
+
+    printf ("time is (%f seconds).\n",((float)times)/CLOCKS_PER_SEC);
+
+
    //C = multmat(A, B, C, N);
 
    cout << endl;
@@ -126,7 +151,6 @@ int main(){
    }
 
 
-   printf ("It took me %d clicks (%f seconds).\n",(int)t,((float)t)/CLOCKS_PER_SEC);
    pthread_exit(NULL);
 
 
