@@ -39,6 +39,9 @@ void *multmat(void *threadarg){
 
 
 int main(){
+  int casos;
+  cin>>casos;
+  while (casos > 0) {
     int N;
     scanf("%d", &N);
     vector<vector< int > > A(N,vector<int>(N));
@@ -48,8 +51,8 @@ int main(){
     clock_t times;
 
 
-   //rellenar matrices
-   for(int i=0; i<N; i++){
+    //rellenar matrices
+    for(int i=0; i<N; i++){
 
              for(int j=0; j<N; j++){
 
@@ -58,11 +61,11 @@ int main(){
 
               }
 
-   }
+    }
 
-   // Impresión de las matrices
-
-   for(int i=0; i<N; i++){
+    // Impresión de las matrices
+    /*
+    for(int i=0; i<N; i++){
 
          for(int j=0; j<N; j++){
 
@@ -72,11 +75,11 @@ int main(){
 
          cout << endl;
 
-   }
+    }
 
-   cout << endl;
+    cout << endl;
 
-   for(int i=0; i<N; i++){
+    for(int i=0; i<N; i++){
 
             for(int j=0; j<N; j++){
 
@@ -86,31 +89,31 @@ int main(){
 
            cout << endl;
 
-   }
+    }*/
 
-   //empieza a tomar el tiempo
+    //empieza a tomar el tiempo
 
-   times = clock();
+    times = clock();
 
-   //hilos
-   pthread_t threads[NUM_THREADS];
-   int *taskids[NUM_THREADS];
-   int rc;
-   long thread;
-   pthread_attr_t attr;
-   void *status;
+    //hilos
+    pthread_t threads[NUM_THREADS];
+    int *taskids[NUM_THREADS];
+    int rc;
+    long thread;
+    pthread_attr_t attr;
+    void *status;
 
 
-   // Initialize and set thread joinable
-   pthread_attr_init(&attr);
-   pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
+    // Initialize and set thread joinable
+    pthread_attr_init(&attr);
+    pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
 
-   for(thread=0;thread<NUM_THREADS;thread++){
+    for(thread=0;thread<NUM_THREADS;thread++){
      mult[thread].thread_id = thread;
      mult[thread].N = N;
      mult[thread].A = A;
      mult[thread].B = B;
-     printf("In main: creating thread %ld\n", thread);
+     //printf("In main: creating thread %ld\n", thread);
      rc = pthread_create(&threads[thread], NULL, multmat, (void *) &mult[thread]);
      if (rc){
        printf("ERROR; return code from pthread_create() is %d\n", rc);
@@ -119,26 +122,26 @@ int main(){
     }
 
     // free attribute and wait for the other threads
-   pthread_attr_destroy(&attr);
-   for(int i = 0; i < NUM_THREADS; i++ ) {
+    pthread_attr_destroy(&attr);
+    for(int i = 0; i < NUM_THREADS; i++ ) {
       rc = pthread_join(threads[i], &status);
       if (rc) {
          cout << "Error:unable to join," << rc << endl;
          exit(-1);
       }
-   }
+    }
 
     times = clock() - times;
 
+    printf("%f\n", ((float)times)/CLOCKS_PER_SEC);
+    //printf ("time is (%f seconds).\n",((float)times)/CLOCKS_PER_SEC);
 
-    printf ("time is (%f seconds).\n",((float)times)/CLOCKS_PER_SEC);
 
+    //C = multmat(A, B, C, N);
 
-   //C = multmat(A, B, C, N);
+    /*cout << endl;
 
-   cout << endl;
-
-   for(int i=0; i<N; i++){
+    for(int i=0; i<N; i++){
 
             for(int j=0; j<N; j++){
 
@@ -148,10 +151,13 @@ int main(){
 
            cout << endl;
 
-   }
+    }*/
 
 
-   pthread_exit(NULL);
+    casos--;
+  }
+
+  pthread_exit(NULL);
 
 
    return 0;

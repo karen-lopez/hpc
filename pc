@@ -1,0 +1,27 @@
+descripción: Notebook
+    prodescripción: Notebook
+    producto: X555DG (ASUS-NotebookSKU)
+    fabricante: ASUSTeK COMPUTER INC.
+    versión: 1.0
+    serie: FCN0CV006267493
+    anchura: 64 bits
+    capacidades: smbios-3.0 dmi-3.0 smp vsyscall32
+
+*-memory
+         descripción: Memoria de sistema
+         id físico: 11
+         ranura: Placa de sistema o placa base
+         tamaño: 8GiB
+
+*-cpu
+        descripción: CPU
+        producto: AMD A10-8700P Radeon R6, 10 Compute Cores 4C+6G
+        fabricante: Advanced Micro Devices [AMD]
+        id físico: 1d
+        información del bus: cpu@0
+        versión: AMD A10-8700P Radeon R6, 10 Compute Cores 4C+6G
+        ranura: P0
+        tamaño: 1297MHz
+        capacidad: 1800MHz
+        anchura: 64 bits
+        reloj: 100MHz

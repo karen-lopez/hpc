@@ -1,0 +1,4 @@
+#!/bin/bash
+
+g++ $1 -o ejecutable -lpthread
+./ejecutable <$2>$3
