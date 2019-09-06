@@ -91,9 +91,8 @@ int main(){
 
     }*/
 
-    //empieza a tomar el tiempo
 
-    times = clock();
+
 
     //hilos
     pthread_t threads[NUM_THREADS];
@@ -103,6 +102,8 @@ int main(){
     pthread_attr_t attr;
     void *status;
 
+    //empieza a tomar el tiempo
+    times = clock();
 
     // Initialize and set thread joinable
     pthread_attr_init(&attr);
@@ -113,22 +114,13 @@ int main(){
      mult[thread].N = N;
      mult[thread].A = A;
      mult[thread].B = B;
-     //printf("In main: creating thread %ld\n", thread);
      rc = pthread_create(&threads[thread], NULL, multmat, (void *) &mult[thread]);
-     if (rc){
-       printf("ERROR; return code from pthread_create() is %d\n", rc);
-       exit(-1);
-       }
     }
 
     // free attribute and wait for the other threads
-    pthread_attr_destroy(&attr);
+    //pthread_attr_destroy(&attr);
     for(int i = 0; i < NUM_THREADS; i++ ) {
       rc = pthread_join(threads[i], &status);
-      if (rc) {
-         cout << "Error:unable to join," << rc << endl;
-         exit(-1);
-      }
     }
 
     times = clock() - times;

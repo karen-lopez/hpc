@@ -1,4 +1,4 @@
 #!/bin/bash
 
-g++ -o $1 ejecutable -lpthread
-./ejecutable <$2>$3
+g++ -o m $1 -pthread
+./m<entrada>salidaSecuencial

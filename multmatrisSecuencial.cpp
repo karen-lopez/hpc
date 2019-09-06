@@ -4,7 +4,7 @@ using namespace std;
 
 //funcion que multiplica 2 matrices (A Y B) de tamaño NXN y
 //retorna el resultado de la multiplicacion
-vector<vector< int > > multmatris(vector<vector< int > > A, vector<vector< int > > B, N){
+vector<vector< int > > multmatris(vector<vector< int > > A, vector<vector< int > > B,int N){
   vector<vector< int > > C(N,vector<int>(N));
 
   for(int i= 0; i<N; ++i){
@@ -18,31 +18,35 @@ vector<vector< int > > multmatris(vector<vector< int > > A, vector<vector< int >
 }
 
 int main(){
-  
-    int N;
-    scanf("%d", &N);
-    vector<vector< int > > A(N,vector<int>(N));
-    vector<vector< int > > B(N,vector<int>(N));
-    vector<vector< int > > C(N,vector<int>(N));
-    clock_t times;
+    int casos;
+    cin>>casos;
+    while (casos > 0) {
+      int N;
+      scanf("%d", &N);
+      vector<vector< int > > A(N,vector<int>(N));
+      vector<vector< int > > B(N,vector<int>(N));
+      vector<vector< int > > C(N,vector<int>(N));
+      clock_t times;
 
 
-    //rellenar matrices
-    for(int i=0; i<N; i++){
+      //rellenar matrices
+      for(int i=0; i<N; i++){
 
-             for(int j=0; j<N; j++){
+               for(int j=0; j<N; j++){
 
-                    A[i][j] = rand() % 10;
-                    B[i][j] = rand() % 10;
+                      A[i][j] = rand() % 10;
+                      B[i][j] = rand() % 10;
 
-              }
+                }
 
-    }
+      }
 
-    times = clock();
-    C = multmatris(A, B, N);
-    times = clock() - times;
+      times = clock();
+      C = multmatris(A, B, N);
+      times = clock() - times;
 
-    printf("%f\n", ((float)times)/CLOCKS_PER_SEC);
+      printf("%f\n", ((float)times)/CLOCKS_PER_SEC);
+      casos--;
+  }
 
 }
