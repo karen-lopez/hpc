@@ -1,4 +1,5 @@
 #!/bin/bash
 
-g++ -o m $1 -pthread
-./m<entrada>salidaSecuencial
+g++ -o $1 -lpthread
+
+./m<entrada>$2

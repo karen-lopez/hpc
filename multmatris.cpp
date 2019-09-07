@@ -48,7 +48,7 @@ int main(){
     vector<vector< int > > B(N,vector<int>(N));
     vector<vector< int > > aux(N,vector<int>(N));
     C = aux;
-    clock_t times;
+    std::chrono::time_point<std::chrono::system_clock> instanteInicial, instanteFinal;
 
 
     //rellenar matrices
@@ -103,7 +103,7 @@ int main(){
     void *status;
 
     //empieza a tomar el tiempo
-    times = clock();
+    instanteInicial= std::chrono::system_clock::now();
 
     // Initialize and set thread joinable
     pthread_attr_init(&attr);
@@ -123,9 +123,10 @@ int main(){
       rc = pthread_join(threads[i], &status);
     }
 
-    times = clock() - times;
+    instanteFinal  = std::chrono::system_clock::now();
 
-    printf("%f\n", ((float)times)/CLOCKS_PER_SEC);
+    std::chrono::duration<double> segundos = instanteFinal-instanteInicial;
+    cout << segundos.count() << endl;
     //printf ("time is (%f seconds).\n",((float)times)/CLOCKS_PER_SEC);
 
 

@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <chrono>
 
 using namespace std;
 
@@ -26,8 +27,7 @@ int main(){
       vector<vector< int > > A(N,vector<int>(N));
       vector<vector< int > > B(N,vector<int>(N));
       vector<vector< int > > C(N,vector<int>(N));
-      clock_t times;
-
+      std::chrono::time_point<std::chrono::system_clock> instanteInicial, instanteFinal;
 
       //rellenar matrices
       for(int i=0; i<N; i++){
@@ -41,11 +41,12 @@ int main(){
 
       }
 
-      times = clock();
+      instanteInicial= std::chrono::system_clock::now();
       C = multmatris(A, B, N);
-      times = clock() - times;
+      instanteFinal  = std::chrono::system_clock::now();
 
-      printf("%f\n", ((float)times)/CLOCKS_PER_SEC);
+      std::chrono::duration<double> segundos = instanteFinal-instanteInicial;
+      cout << segundos.count() << endl;
       casos--;
   }
 
