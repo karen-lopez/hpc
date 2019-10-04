@@ -30,7 +30,7 @@ void *multmat(void *threadarg){
   for(int i=(N/4)*t; i<parada; ++i){
         for(int j=0; j<N; ++j){
             for(int z=0; z<N; ++z){
-                C[i][j] += A[i][z] * B[z][j];
+                C[i][j] += A[i][z] * B[j][z];
             }
           }
   }
@@ -46,6 +46,7 @@ int main(){
     scanf("%d", &N);
     vector<vector< int > > A(N,vector<int>(N));
     vector<vector< int > > B(N,vector<int>(N));
+    vector<vector< int > > transpuesta(N,vector<int>(N));
     vector<vector< int > > aux(N,vector<int>(N));
     C = aux;
     std::chrono::time_point<std::chrono::system_clock> instanteInicial, instanteFinal;
@@ -61,6 +62,12 @@ int main(){
 
               }
 
+    }
+    //transpuesta de la matriz B
+    for(int i=0; i<N; i++){
+             for(int j=0; j<N; j++){
+                    transpuesta[j][i] = B[i][j];
+              }
     }
 
     // Impresión de las matrices
@@ -113,7 +120,7 @@ int main(){
      mult[thread].thread_id = thread;
      mult[thread].N = N;
      mult[thread].A = A;
-     mult[thread].B = B;
+     mult[thread].B = transpuesta;
      rc = pthread_create(&threads[thread], NULL, multmat, (void *) &mult[thread]);
     }
 

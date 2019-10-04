@@ -1,5 +1,5 @@
 #!/bin/bash
 
-g++ -o $1 -lpthread
+g++ $1 -o m -lpthread
 
 ./m<entrada>$2
