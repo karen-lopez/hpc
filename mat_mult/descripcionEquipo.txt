@@ -1,0 +1,37 @@
+equipo:
+description: Computer
+    product: HVM domU
+    vendor: Xen
+    version: 4.2.amazon
+    serial: ec2de4cc-f00f-4c30-ccd5-a9c1f73bfe99
+    width: 64 bits
+    capabilities: smbios-2.7 dmi-2.7 vsyscall32
+    configuration: boot=normal uuid=CCE42DEC-0FF0-304C-CCD5-A9C1F73BFE99
+  *-core
+       description: Motherboard
+       physical id: 0
+
+-cpu
+          description: CPU
+          product: Intel(R) Xeon(R) CPU E5-2676 v3 @ 2.40GHz
+          vendor: Intel Corp.
+          physical id: 401
+          bus info: cpu@0
+          slot: CPU 1
+          size: 2400MHz
+          capacity: 2400MHz
+          width: 64 bits
+
+memory
+          description: System Memory
+          physical id: 1000
+          size: 1GiB
+          capacity: 1GiB
+          capabilities: ecc
+          configuration: errordetection=multi-bit-ecc
+        *-bank
+             description: DIMM RAM
+             physical id: 0
+             slot: DIMM 0
+             size: 1GiB
+             width: 64 bits
