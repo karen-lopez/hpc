@@ -22,17 +22,17 @@ int main() {
   int t = 2;
   for(int i = 0; i < 15; i++){
 
-    //secuencial
+    /*/secuencial
     for (int i = 1; i <= 10; i++) {
       cout<<0<<" "<<i*100<<" "<<1<<endl;
 
-    }
+    }*/
 
-    //hilos, t = numero de hilos
+    /*/hilos, t = numero de hilos
     for (int i = 1; i <= 10; i++) {
       cout<<t<<" "<<i*100<<" "<<2<<endl;
 
-    }
+    }*/
 
     //tiling
     for (int i = 1; i <= 10; i++) {

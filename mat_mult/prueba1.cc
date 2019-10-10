@@ -48,7 +48,7 @@ void matrix_mult_block(const Matrix& A, const Matrix& B, Matrix& C){
 	int M=B.numRows();
 	int k=A.numRows();
 
-	const int block_size = 64 / sizeof(double); // 64 = common cache line size
+	const int block_size = 1024; // 64 = common cache line size
 	int s=block_size,temp;
 
 	for(int jj=0;jj<N;jj+= s){
