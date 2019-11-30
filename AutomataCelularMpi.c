@@ -20,11 +20,10 @@ int main(int argc, char *argv[])
 {
   //Variables NECESARIAS para el calculo del automata celular
     int numeroDeIteraciones = 1;
-    double dimencionDelArray = 112;
-    double numeroDeSubArrays = 3;
+    double dimencionDelArray = 14;
+    double numeroDeSubArrays = 14;
     int numeroDeSecciones;
-    int prueba[]= {0,1,1,0,0,1,0,1,0,0,0,1,0,0,1,1,0,0,1,0,1,0,0,0,1,0,0,1,1,0,0,1,0,1,0,0,0,1,0,0,1,1,0,0,1,0,1,0,0,0,1,0,
-                  0,1,1,0,0,1,0,1,0,0,0,1,0,0,1,1,0,0,1,0,1,0,0,0,1,0,0,1,1,0,0,1,0,1,0,0,0,1,0,0,1,1,0,0,1,0,1,0,0,0,1,0};
+    int prueba[]= {0,1,0,0,0,1,0,0,1,1,0,0,1,1};
 
     MPI_Status status;
     int rank, size;
@@ -94,12 +93,10 @@ int main(int argc, char *argv[])
         subSiguienteInstante[i] = (int *)malloc((numeroDeSecciones + 1) * sizeof(int));
     }
 
-
     inicarArreglo(subSiguienteInstante, numeroDeSubArrays, numeroDeSecciones + 1);
     inicarArreglo(subArrays, numeroDeSubArrays, numeroDeSecciones + 2);
     //printf("sigueintes : \n");
     //mostrarArreglo(subSiguienteInstante, numeroDeSubArrays, numeroDeSecciones + 1);
-
 
     //Se llena el arrya para pruebas
     for(int i = 0; i < dimencionDelArray; i++)
@@ -111,15 +108,19 @@ int main(int argc, char *argv[])
 
     //Separa el array en sub arrays para su procesamiento
     //Se enviara dos slots adicional en cada una de las sub arrays (para tener vecino derecho e izquierdo)
-
+    printf("prueba2 %d\n", rank  );
     for(int j = 0; j < numeroDeSecciones; j++)
     {
+      printf("prueba3 %d\n", rank  );
+
         //Si es la ultima sub array
         if(rank == numeroDeSubArrays - 1)
         {
+          printf("prueba4 %d\n", rank  );
             //Si +NO es la ultima iteracion
             if(numeroDeSecciones * rank + j  < dimencionDelArray)
             {
+              printf("prueba 3" );
                 subArrays[rank][j] = primerInstanteDeTiempo[numeroDeSecciones * rank + j];
             }
             //Si es la ultima iteracion
@@ -203,8 +204,10 @@ int main(int argc, char *argv[])
     for(int i = 0; i < numeroDeSubArrays; i++)
     {
         free(subSiguienteInstante[i]);
+        free(arrayFinal[i]);
     }
     free(subSiguienteInstante);
+    free(arrayFinal);
 
     MPI_Finalize();
 
